@@ -7,13 +7,16 @@ const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(tokenInfo);
   const isAuthenticated = authToken.token ? true : false;
   const login = (data) => {
-    localStorage.setItem("token", JSON.stringify(data.authToken));
+    localStorage.setItem("token", data.authToken);
     setAuthToken({
       token: data.authToken,
     });
   };
+
   return (
-    <AuthContext.Provider value={{ login, isAuthenticated, authToken }}>
+    <AuthContext.Provider
+      value={{ login, isAuthenticated, authToken, setAuthToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

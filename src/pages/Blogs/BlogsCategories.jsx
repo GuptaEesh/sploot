@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Category } from "../../components";
 import { getBlogs, useAuth } from "../../helpers";
 import { useNavigate } from "react-router";
-
+import "./Blogs.css";
+import { Header } from "../../components";
 const BlogsCategories = () => {
   const [blogs, setBlogs] = useState([]);
   const { authToken } = useAuth();
@@ -16,18 +16,28 @@ const BlogsCategories = () => {
   const openBlogPage = (slug) => {
     navigate(`/blog/${slug}`);
   };
-  return blogs?.map(({ id, imageUrl, name, slug }) => (
-    <div key={id}>
-      {name}
-      <button onClick={() => openBlogPage(slug)}>
-        <img
-          style={{ height: "2rem", margin: "2rem", cursor: "pointer" }}
-          src={imageUrl}
-          alt={name}
-        />
-      </button>
-    </div>
-  ));
+  return (
+    <>
+      <Header />
+      <h1 className="underline">Blogs Categories</h1>
+      <div className="grid grid-3 gap-2">
+        {blogs?.map(({ id, imageUrl, name, slug }) => (
+          <article
+            key={id}
+            className="flex flex-c align-center justify-sb br-010"
+          >
+            <button
+              className="btn ptr img-container"
+              onClick={() => openBlogPage(slug)}
+            >
+              <img className="category-img br-010" src={imageUrl} alt={name} />
+            </button>
+            <span className="underline">{name}</span>
+          </article>
+        ))}
+      </div>
+    </>
+  );
 };
 
 export { BlogsCategories };

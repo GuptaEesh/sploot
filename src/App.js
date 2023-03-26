@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import { PrivateRoute, PublicRoute } from "./components";
 import { BlogPage, BlogsCategories, Login } from "./pages";
-
+import "./App.css";
 function App() {
   return (
     <div className="App">

@@ -1,0 +1,10 @@
+.form{
+    box-shadow: 0 0 8px #ffc2cc;  
+    backdrop-filter: blur(12px);
+      
+}
+.landing-form{
+    background-image: url('../../images/blogs.svg');
+    background-position: left;
+    background-repeat: no-repeat;
+}

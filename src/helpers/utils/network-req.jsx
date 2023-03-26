@@ -30,3 +30,14 @@ export const getBlogPage = async (slug) =>
   await axios.get(
     `https://api-staging-v2.sploot.space/api/v2/public/cms/post-categories/${slug}`
   );
+export const getUserDetails = async (token) => {
+  const res = await axios.get(
+    `https://api-staging-v2.sploot.space/api/v2/user`,
+    {
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    }
+  );
+  return res;
+};
