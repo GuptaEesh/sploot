@@ -96,6 +96,10 @@
   width: 100%;
   backdrop-filter:blur(10px);
 }
+.disableBtn{
+  opacity: 0.5;
+  cursor:not-allowed;
+}
 @media all and (max-width:1200px) {
     .grid-3{
       grid-template-columns: repeat(2,1fr);

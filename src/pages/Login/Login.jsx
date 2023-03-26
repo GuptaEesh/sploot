@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import "./Login.css";
 import { loginHandler, useAuth } from "../../helpers";
 const Login = () => {
-  const [formFields, setFormFields] = useState({ email: "", password: "" });
+  const [formFields, setFormFields] = useState({
+    email: "",
+    password: "",
+  });
+  const [checks, setChecks] = useState({
+    error: "",
+    status: true,
+  });
   const { email, password } = formFields;
   const { login } = useAuth();
   const submitHandler = (e) => {
     e.preventDefault();
-    loginHandler(formFields, login);
+    loginHandler(formFields, login, setChecks);
   };
   const guestLoginHandler = (e) => {
     e.preventDefault();
@@ -18,8 +25,20 @@ const Login = () => {
     }));
   };
   const inputHandler = (e) => {
+    if (
+      e.target.name === "password" &&
+      e.target.value.length < 6 &&
+      e.target.value.length !== 0
+    )
+      setChecks((prev) => ({
+        ...prev,
+        error: "Password should be more than 5 letters!",
+        status: false,
+      }));
+    else setChecks((prev) => ({ ...prev, status: true }));
     setFormFields((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   return (
     <article className="flex landing-form flex-c align-center justify h-100">
       <h1 className="underline">Blogs Bank</h1>
@@ -49,10 +68,26 @@ const Login = () => {
             className="p-1 br-010"
           />
         </label>
+        <span
+          style={{
+            width: "25rem",
+            color: "red",
+            visibility: checks.status ? "hidden" : "visible",
+          }}
+        >
+          {checks.error}
+        </span>
         <button className="btn secondary ptr" onClick={guestLoginHandler}>
           Fill-in test credentials
         </button>
-        <button className="btn primary ptr">Login</button>
+        <button
+          className={` ${
+            (!checks.status || password.length === 0) && "disableBtn"
+          } btn primary ptr`}
+          disabled={!checks.status}
+        >
+          Login
+        </button>
       </form>
     </article>
   );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const loginHandler = async (formFields, login) => {
+export const loginHandler = async (formFields, login, setChecks) => {
   const { email, password } = formFields;
   try {
     const res = await axios.post(
@@ -11,7 +11,13 @@ export const loginHandler = async (formFields, login) => {
       }
     );
     login(res.data.data.data);
-  } catch (error) {}
+  } catch (error) {
+    setChecks((prev) => ({
+      ...prev,
+      error: error.response.data.message,
+      status: false,
+    }));
+  }
 };
 export const getBlogs = async (token) => {
   try {
